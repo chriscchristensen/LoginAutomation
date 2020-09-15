@@ -1,0 +1,60 @@
+package qaautomation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+
+/**
+ *
+ * @author cchristensen
+ */
+public class LoginCheck {
+
+    public static void main(String[] args) throws InterruptedException {        
+        //Setup Chrome Drvier by setting property
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\cchristensen\\Downloads\\chromedriver_win32\\chromedriver.exe");
+                
+        //Open browser
+        WebDriver driver = new ChromeDriver();
+        
+        //Open Window tab in max mode
+        driver.manage().window().maximize();
+        
+        //Open application
+        driver.get("https://thor.printercloud.com/admin/");
+        
+        //Local target element(username)
+        WebElement login_user = driver.findElement(By.id("relogin_user"));
+        
+        //Do what needs to be automated
+        login_user.sendKeys("admin");
+        
+        //Locate next target element(password)
+        WebElement login_password = driver.findElement(By.id("relogin_password"));
+        
+        //Do what needs to be automated
+        login_password.sendKeys("Password1");
+        
+        //locate next target element(login button)
+        WebElement login_loginBtn = driver.findElement(By.id("admin-login-btn"));
+        
+        //click target element
+        login_loginBtn.click();
+        
+        //Instantiate the actual URL
+        String actualURL = "https://thor.printercloud.com/admin/";
+        
+        //Instantiate the expected URL
+        String expectedURL = driver.getCurrentUrl();
+        
+        //verify and validate the the action brought us to the appropriate URL. 
+        if(actualURL.equalsIgnoreCase(expectedURL)){
+            System.out.println("Test Passed");
+        }
+        else {
+            System.out.println("Test Failed");
+        }        
+    }
+}
